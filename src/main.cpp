@@ -36,11 +36,14 @@ int main(){
         }
 
 
-        // Compute velocities
+        // Compute velocities with multiple substeps for stability
         if (simSpeed == 3)
         {
             sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-            compute(particles,screensize,particleCount, mousePos);
+            // Run multiple substeps per frame for numerical stability
+            for(int substep = 0; substep < 20; substep++) {
+                compute(particles, screensize, particleCount, mousePos);
+            }
             simSpeed = 0;
         }
         simSpeed++;
